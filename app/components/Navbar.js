@@ -7,54 +7,30 @@ export default function Navbar() {
   const [menuOuvert, setMenuOuvert] = useState(false)
 
   const liens = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Services', href: '/services' },
-  { label: 'À propos', href: '/apropos' },
-  { label: 'Contact', href: '/contact' },
+    { label: 'Accueil', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'À propos', href: '/apropos' },
+    { label: 'Contact', href: '/contact' },
   ]
 
   return (
-    <nav style={{
-      padding: '20px 48px',
-      backgroundColor: '#1e293b',
-      borderBottom: '1px solid #334155',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100
-    }}>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <Link href="/" style={{
-          fontSize: '1.4rem',
-          fontWeight: 'bold',
-          color: '#38bdf8',
-          textDecoration: 'none'
-        }}>
+    <nav className="px-12 py-5 bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
+      <div className="flex justify-between items-center">
+
+        <Link href="/" className="text-sky-400 text-xl font-bold no-underline">
           👨‍💻 Boubacar Dev
         </Link>
 
-        <ul style={{
-          listStyle: 'none',
-          display: 'flex',
-          gap: '32px',
-          margin: 0,
-          padding: 0
-        }}>
+        <ul className="list-none flex gap-8 m-0 p-0">
           {liens.map((lien) => (
             <li key={lien.label}>
-              <Link href={lien.href} style={{
-                color: '#94a3b8',
-                textDecoration: 'none',
-                fontSize: '0.95rem'
-              }}>
+              <Link href={lien.href} className="text-slate-400 text-sm no-underline hover:text-sky-400 transition-colors duration-200">
                 {lien.label}
               </Link>
             </li>
           ))}
         </ul>
+
       </div>
     </nav>
   )

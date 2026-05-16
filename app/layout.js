@@ -1,4 +1,5 @@
 import Chat from './components/Chat'
+import Navbar from './components/Navbar'
 import './globals.css'
 
 export const metadata = {
@@ -9,7 +10,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body style={{ margin: 0, padding: 0 }}>
+      <body className="m-0 p-0">
+        <Navbar />
         {children}
         <Chat />
       </body>
