@@ -1,9 +1,16 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function Navbar() {
   const [menuOuvert, setMenuOuvert] = useState(false)
+
+  const liens = [
+    { label: 'Accueil', href: '/' },
+    { label: 'À propos', href: '/apropos' },
+    { label: 'Contact', href: '/contact' },
+  ]
 
   return (
     <nav style={{
@@ -14,22 +21,20 @@ export default function Navbar() {
       top: 0,
       zIndex: 100
     }}>
-
-      {/* Barre principale */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <div style={{
+        <Link href="/" style={{
           fontSize: '1.4rem',
           fontWeight: 'bold',
-          color: '#38bdf8'
+          color: '#38bdf8',
+          textDecoration: 'none'
         }}>
-            Boubacar Dev
-        </div>
+          👨‍💻 Boubacar Dev
+        </Link>
 
-        {/* Menu desktop */}
         <ul style={{
           listStyle: 'none',
           display: 'flex',
@@ -37,59 +42,19 @@ export default function Navbar() {
           margin: 0,
           padding: 0
         }}>
-          {['Accueil', 'Projets', 'Contact'].map((lien) => (
-            <li key={lien}>
-              <a href="#" style={{
+          {liens.map((lien) => (
+            <li key={lien.label}>
+              <Link href={lien.href} style={{
                 color: '#94a3b8',
                 textDecoration: 'none',
                 fontSize: '0.95rem'
               }}>
-                {lien}
-              </a>
+                {lien.label}
+              </Link>
             </li>
           ))}
         </ul>
-
-        {/* Bouton burger mobile */}
-        <button
-          onClick={() => setMenuOuvert(!menuOuvert)}
-         style={{
-            display: 'block',
-            background: 'none',
-            border: 'none',
-            color: '#f8fafc',
-            fontSize: '1.5rem',
-            cursor: 'pointer'
-            }}
-        >
-          {menuOuvert ? '✕' : '☰'}
-        </button>
       </div>
-
-      {/* Menu mobile */}
-      {menuOuvert && (
-        <ul style={{
-          listStyle: 'none',
-          padding: '16px 0 0',
-          margin: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px'
-        }}>
-          {['Accueil', 'Projets', 'Contact'].map((lien) => (
-            <li key={lien}>
-              <a href="#" style={{
-                color: '#94a3b8',
-                textDecoration: 'none',
-                fontSize: '1rem'
-              }}>
-                {lien}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-
     </nav>
   )
 }

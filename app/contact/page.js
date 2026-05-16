@@ -1,0 +1,139 @@
+'use client'
+
+import { useState } from 'react'
+
+export default function Contact() {
+  const [envoye, setEnvoye] = useState(false)
+
+  return (
+    <main style={{
+      backgroundColor: '#0f172a',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '48px'
+    }}>
+      <div style={{ maxWidth: '500px', width: '100%' }}>
+
+        <h1 style={{
+          fontSize: '2.5rem',
+          color: '#38bdf8',
+          marginBottom: '8px',
+          textAlign: 'center'
+        }}>
+          Contact 📧
+        </h1>
+
+        <p style={{
+          color: '#94a3b8',
+          textAlign: 'center',
+          marginBottom: '40px'
+        }}>
+          Tu as un projet ? Écris-moi, je réponds sous 24h.
+        </p>
+
+        {envoye ? (
+          <div style={{
+            backgroundColor: '#1e293b',
+            border: '1px solid #38bdf8',
+            borderRadius: '16px',
+            padding: '48px',
+            textAlign: 'center'
+          }}>
+            <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🎉</div>
+            <h2 style={{ color: '#38bdf8', marginBottom: '8px' }}>
+              Message envoyé !
+            </h2>
+            <p style={{ color: '#94a3b8' }}>
+              Je te réponds dans les 24h.
+            </p>
+          </div>
+        ) : (
+          <div style={{
+            backgroundColor: '#1e293b',
+            borderRadius: '16px',
+            padding: '40px',
+            border: '1px solid #334155',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px'
+          }}>
+
+            {[
+              { label: 'Ton prénom', type: 'text', placeholder: 'Ex: Aminata' },
+              { label: 'Ton email', type: 'email', placeholder: 'Ex: aminata@gmail.com' },
+            ].map((field) => (
+              <div key={field.label} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <label style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+                  {field.label}
+                </label>
+                <input
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  style={{
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    border: '1.5px solid #334155',
+                    backgroundColor: '#0f172a',
+                    color: '#f8fafc',
+                    fontSize: '1rem',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+            ))}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+                Ton message
+              </label>
+              <textarea
+                placeholder="Décris ton projet..."
+                rows={4}
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  border: '1.5px solid #334155',
+                  backgroundColor: '#0f172a',
+                  color: '#f8fafc',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  resize: 'vertical'
+                }}
+              />
+            </div>
+
+            <button
+              onClick={() => setEnvoye(true)}
+              style={{
+                backgroundColor: '#38bdf8',
+                color: '#0f172a',
+                border: 'none',
+                padding: '14px',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                cursor: 'pointer'
+              }}
+            >
+              Envoyer le message 🚀
+            </button>
+
+          </div>
+        )}
+
+        <div style={{ textAlign: 'center', marginTop: '24px' }}>
+          <a href="/" style={{
+            color: '#94a3b8',
+            textDecoration: 'none',
+            fontSize: '0.9rem'
+          }}>
+            ← Retour à l'accueil
+          </a>
+        </div>
+
+      </div>
+    </main>
+  )
+}
