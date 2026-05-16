@@ -7,9 +7,10 @@ export default function Navbar() {
   const [menuOuvert, setMenuOuvert] = useState(false)
 
   const liens = [
-    { label: 'Accueil', href: '/' },
-    { label: 'À propos', href: '/apropos' },
-    { label: 'Contact', href: '/contact' },
+  { label: 'Accueil', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'À propos', href: '/apropos' },
+  { label: 'Contact', href: '/contact' },
   ]
 
   return (
