@@ -1,9 +1,38 @@
 'use client'
 
 import { useState } from 'react'
+import { supabase } from '../lib/supabase'
 
 export default function Contact() {
   const [envoye, setEnvoye] = useState(false)
+  const [chargement, setChargement] = useState(false)
+  const [nom, setNom] = useState('')
+  const [email, setEmail] = useState('')
+  const [messageTexte, setMessageTexte] = useState('')
+
+  async function envoyerMessage() {
+    // Vérification basique
+    if (!nom || !email || !messageTexte) {
+      alert('Remplis tous les champs !')
+      return
+    }
+
+    setChargement(true)
+
+    // Envoyer à Supabase
+    const { error } = await supabase
+      .from('messages')
+      .insert([{ nom, email, message: messageTexte }])
+
+    if (error) {
+      alert('Erreur lors de l envoi. Réessaie !')
+      console.error(error)
+    } else {
+      setEnvoye(true)
+    }
+
+    setChargement(false)
+  }
 
   return (
     <main style={{
@@ -60,29 +89,47 @@ export default function Contact() {
             gap: '20px'
           }}>
 
-            {[
-              { label: 'Ton prénom', type: 'text', placeholder: 'Ex: Aminata' },
-              { label: 'Ton email', type: 'email', placeholder: 'Ex: aminata@gmail.com' },
-            ].map((field) => (
-              <div key={field.label} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <label style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
-                  {field.label}
-                </label>
-                <input
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  style={{
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    border: '1.5px solid #334155',
-                    backgroundColor: '#0f172a',
-                    color: '#f8fafc',
-                    fontSize: '1rem',
-                    outline: 'none'
-                  }}
-                />
-              </div>
-            ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+                Ton prénom
+              </label>
+              <input
+                type="text"
+                placeholder="Ex: Aminata"
+                value={nom}
+                onChange={(e) => setNom(e.target.value)}
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  border: '1.5px solid #334155',
+                  backgroundColor: '#0f172a',
+                  color: '#f8fafc',
+                  fontSize: '1rem',
+                  outline: 'none'
+                }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+                Ton email
+              </label>
+              <input
+                type="email"
+                placeholder="Ex: aminata@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  border: '1.5px solid #334155',
+                  backgroundColor: '#0f172a',
+                  color: '#f8fafc',
+                  fontSize: '1rem',
+                  outline: 'none'
+                }}
+              />
+            </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <label style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
@@ -91,6 +138,8 @@ export default function Contact() {
               <textarea
                 placeholder="Décris ton projet..."
                 rows={4}
+                value={messageTexte}
+                onChange={(e) => setMessageTexte(e.target.value)}
                 style={{
                   padding: '12px 16px',
                   borderRadius: '8px',
@@ -105,19 +154,20 @@ export default function Contact() {
             </div>
 
             <button
-              onClick={() => setEnvoye(true)}
+              onClick={envoyerMessage}
+              disabled={chargement}
               style={{
-                backgroundColor: '#38bdf8',
-                color: '#0f172a',
+                backgroundColor: chargement ? '#334155' : '#38bdf8',
+                color: chargement ? '#94a3b8' : '#0f172a',
                 border: 'none',
                 padding: '14px',
                 borderRadius: '8px',
                 fontWeight: 'bold',
                 fontSize: '1rem',
-                cursor: 'pointer'
+                cursor: chargement ? 'not-allowed' : 'pointer'
               }}
             >
-              Envoyer le message 🚀
+              {chargement ? 'Envoi en cours...' : 'Envoyer le message 🚀'}
             </button>
 
           </div>
